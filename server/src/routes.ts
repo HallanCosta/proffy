@@ -3,8 +3,10 @@ import express from 'express';
 import db from './database/connection';
 
 import ClassesController from './controllers/ClassesController';
+import ConnectionsController from './controllers/ConnectionsController';
 
 const classesController = new ClassesController;
+const connectionsController = new ConnectionsController;
 
 const routes = express.Router();
 
@@ -22,5 +24,7 @@ const routes = express.Router();
 */
 routes.get('/classes', classesController.index);
 routes.post('/classes', classesController.create);
+
+routes.post('/connections', connectionsController.create);
 
 export default routes;
