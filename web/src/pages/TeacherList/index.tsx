@@ -9,7 +9,6 @@ import api from '../../services/api';
 
 import './styles.css';
 
-
 const TeacherList: React.FC = () => {
   const [teachers, setTeachers] = useState([]);
 
