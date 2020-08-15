@@ -122,5 +122,5 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.c
 ## :computer: Desenvolvimento
 | Author | Contribuidor |
 |--|--|
-| [<img src="https://avatars2.githubusercontent.com/u/60573155?s=115&v=3"><br><sub>@HallanCosta</sub>](https://github.com/HallanCosta) | [<img src="https://avatars0.githubusercontent.com/u/28929274?s=115&v=3"><br><sub>@Rocketseat</sub>](https://github.com/HallanCosta) |
+| [<img src="https://avatars2.githubusercontent.com/u/60573155?s=115&v=3"><br><sub>@HallanCosta</sub>](https://github.com/HallanCosta) | [<img src="https://avatars0.githubusercontent.com/u/28929274?s=115&v=3"><br><sub>@Rocketseat</sub>](https://github.com/rocketseat) |
 
