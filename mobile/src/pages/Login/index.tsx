@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, Image, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
-import { BorderlessButton } from 'react-native-gesture-handler'
+import { BorderlessButton } from 'react-native-gesture-handler';
+
+import { useAuth } from '../../contexts/auth';
 
 import backgroundImg from '../../assets/images/background.png';
 import introImg from '../../assets/images/intro.png';
@@ -12,6 +14,7 @@ import hidePasswordIcon from '../../assets/images/icons/closeEye.png';
 import styles from './styles';
 
 const Login: React.FC = () => {
+
   const [checked, setChecked] = useState<boolean>(false);
   const [secureText, setSecureText] = useState<boolean>(true);
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -29,6 +32,9 @@ const Login: React.FC = () => {
     password: ''
   });
 
+
+  const { signed, user, signIn } = useAuth();
+
   function handleFormDataValidate() {
     if (formData.email.length > 0 && formData.password.length > 0) {
       setFormDataValid(true);
@@ -45,6 +51,10 @@ const Login: React.FC = () => {
   useEffect(() => {
     handleFormDataValidate();
   }, [formData.email, formData.password]);
+
+  function handleSignIn() {
+    signIn(formData, checked);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -119,8 +129,8 @@ const Login: React.FC = () => {
                 value.length > 0 ? setPasswordLabel(true) : setPasswordLabel(false);
               }}
             />
-
             {passwordLabel && <Text style={styles.label}>Senha</Text>}
+            
             <BorderlessButton
               style={[
                 styles.buttonEyeIconPassword,
@@ -158,7 +168,7 @@ const Login: React.FC = () => {
             formDataValid ? styles.submitValid : {}
           ]}
           enabled={enableSubmit}
-          onPress={() => alert('Finge que entrou ._.')}
+          onPress={handleSignIn}
         >
           <Text style={[
             styles.submitText,

@@ -1,10 +1,9 @@
-import React from 'react'
-import { View } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons } from '@expo/vector-icons'
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
-import TeacherList from '../pages/TeacherList'
-import Favorites from '../pages/Favorites'
+import TeacherList from '../../pages/TeacherList';
+import Favorites from '../../pages/Favorites';
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
