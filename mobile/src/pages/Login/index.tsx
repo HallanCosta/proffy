@@ -16,7 +16,6 @@ import styles from './styles';
 const Login: React.FC = () => {
 
   const [checked, setChecked] = useState<boolean>(false);
-  const [secureText, setSecureText] = useState<boolean>(true);
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [formDataValid, setFormDataValid] = useState<boolean>(false);
   const [enableSubmit, setEnableSubmit] = useState<boolean>(false);
@@ -31,7 +30,6 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   });
-
 
   const { signed, user, signIn } = useAuth();
 
@@ -59,7 +57,7 @@ const Login: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={ Platform.OS === 'ios' ? 'padding' : 'position'  }
+      behavior={ Platform.OS === 'ios' ? 'padding' : 'position' }
       keyboardVerticalOffset={-100}
     >
       <View style={styles.backgroundContainer}>
@@ -148,17 +146,17 @@ const Login: React.FC = () => {
         </View>
 
         <View style={styles.groupFooter}>
-          <View style={styles.remember}>
 
-          <Checkbox
-            status={checked ? 'checked' : 'unchecked'}
-            color="#04D361"
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          />
+          <View style={styles.remember}>
+            <Checkbox
+              status={checked ? 'checked' : 'unchecked'}
+              color="#04D361"
+              onPress={() => setChecked(!checked)}
+            />
+
             <Text style={styles.footerText}>Lembrar-me</Text>
           </View>
+          
           <Text style={styles.footerText}>Esqueci minha senha</Text>
         </View>
 

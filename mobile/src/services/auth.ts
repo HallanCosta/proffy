@@ -1,6 +1,6 @@
 import api from '../services/api';
 
-interface UserAccount {
+export interface UserAccount {
   email: string;
   password: string;
 }
@@ -13,8 +13,16 @@ interface UserAuthResponse {
   }
 }
 
-export async function signIn(userAccount: UserAccount): Promise<UserAuthResponse> {
-  const response = await api.post('/authenticate', userAccount);
+interface UserAuthErrorResponse {
+  message: string;
+}
 
-  return response.data;
+export async function signIn(userAccount: UserAccount): Promise<UserAuthResponse | UserAuthErrorResponse> {
+  try {
+    const response = await api.post('/authenticate', userAccount);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 }

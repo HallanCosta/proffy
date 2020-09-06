@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 
 import * as auth from  '../services/auth';
 import api from  '../services/api';
@@ -10,24 +10,11 @@ interface User {
   email: string;
 }
 
-interface UserAuthResponse { 
-  token: string;
-  user: {
-    name: string;
-    email: string;
-  }
-}
-
-interface UserAccount {
-  email: string;
-  password: string;
-}
-
 interface AuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  signIn(userAccount: UserAccount, checked: boolean): Promise<void>;
+  signIn(userAccount: auth.UserAccount, checked: boolean): Promise<void>;
   signOut(): void;
 }
 
@@ -53,14 +40,18 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
   
-  async function signIn(userAccount: UserAccount, checked: Boolean) {
+  async function signIn(userAccount: auth.UserAccount, rememberMe: boolean) {
     const response = await auth.signIn(userAccount);
-   
+    
+    if ("message" in response) {
+      return Alert.alert('Falha na autenticação', 'Úsuario ou senha ínvalido!');
+    }
+
     setUser(response.user);
 
-    api.defaults.headers.Authorization = `Bearer ${response.token}`;
+    api.defaults.headers.Authorization = response.token;
 
-    if (checked) {
+    if (rememberMe) {
       await AsyncStorage.setItem('@ProffyAuth:user', JSON.stringify(response.user));
     }
  

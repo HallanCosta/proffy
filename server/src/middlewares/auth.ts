@@ -21,7 +21,7 @@ export default class Authenticate {
 
       return next();
     } catch (err) {
-      return response.status(401).json({ messae: "Token invalid" });
+      return response.status(401).json({ message: "Token invalid" });
     } 
   }
 }

@@ -16,16 +16,6 @@ interface userAccountResponse {
 
 export default class UsersController {
 
-  // async index(request: Request, response: Response) {
-  //   const { id } = request.body;
-
-  //   const users = await db('usersAccount')
-  //     .select('*')
-  //     .where('id', '=', id);
-
-  //   return response.status(200).json({users});
-  // }
-
   async create(request: Request, response: Response) {
     const { 
       name,

@@ -3,6 +3,7 @@ import { View, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { useAuth } from '../../contexts/auth';
 
@@ -22,12 +23,31 @@ const Landing: React.FC = () => {
   const [totalConnections, setTotalConnections] = useState<number>(0);
 
   useEffect(() => {
-    api.get('connections')
-      .then(response => {
-        const { total } = response.data
-        console.log(response.data)
-        setTotalConnections(total)
-      })
+    async function loadConnections() {
+      const { total } = await api.get('connections');
+
+      const userAsyncStorage = await AsyncStorage.getItem('@ProffyAuth:user');
+      const tokenAsyncStorage = await AsyncStorage.getItem('@ProffyAuth:token');
+
+      api.defaults.headers.Authorization = tokenAsyncStorage;
+
+      setTotalConnections(total)
+    }
+    loadConnections();
+  }, []);
+
+  useEffect(() => {
+    async function loadUser() {
+      const userAsyncStorage = await AsyncStorage.getItem('@ProffyAuth:user');
+      const tokenAsyncStorage = await AsyncStorage.getItem('@ProffyAuth:token');
+      
+      setTimeout(() => {
+        console.log(user);
+        console.log(userAsyncStorage);
+        console.log(tokenAsyncStorage);
+      }, 2000)
+    }
+    loadUser();
   }, []);
 
   function handleNavigateToGiveClassesPage() {
@@ -56,11 +76,11 @@ const Landing: React.FC = () => {
             style={styles.buttonProfile}
           >
             <Image 
-              source={{ uri: "https://avatars2.githubusercontent.com/u/60573155?s=460&u=86cfeb9a11d851329a2f51299d3c35f552fcb0e1&v=4" }} 
+              source={{ uri: `https://ui-avatars.com/api/?name=${user?.name}` }} 
               style={styles.avatar} 
             />
             <Text style={styles.avatarName}>
-              Hállan da Silva Costa
+              {user?.name}
             </Text>
           </RectButton>
           <BorderlessButton
