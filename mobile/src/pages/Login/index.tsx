@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, Image, TextInput, KeyboardAvoidingView, Pl
 import { RectButton } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
 import { BorderlessButton } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '../../contexts/auth';
 
@@ -33,6 +34,8 @@ const Login: React.FC = () => {
 
   const { signed, user, signIn } = useAuth();
 
+  const { navigate } = useNavigation();
+
   function handleFormDataValidate() {
     if (formData.email.length > 0 && formData.password.length > 0) {
       setFormDataValid(true);
@@ -52,6 +55,10 @@ const Login: React.FC = () => {
 
   function handleSignIn() {
     signIn(formData, checked);
+  }
+
+  function handleNaviateToCreateAccount() {
+    navigate('CreateAccount');
   }
 
   return (
@@ -77,7 +84,11 @@ const Login: React.FC = () => {
 
         <View style={styles.groupHeader}>
           <Text style={styles.title}>Fazer login</Text>
-          <Text style={styles.createAccount}>Criar uma conta</Text>
+          <RectButton
+            onPress={handleNaviateToCreateAccount}
+          >
+            <Text style={styles.createAccount}>Criar uma conta</Text>
+          </RectButton>
         </View>
 
         <View style={styles.groupInput}>
