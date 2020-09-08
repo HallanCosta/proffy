@@ -3,12 +3,18 @@ import { StyleSheet } from 'react-native'
 
 //styled() herança
 
-export const Container = styled.View`
-  background: #F0F0F7;
-  padding-top: 64px; 
-  padding-left: 32px;
-  padding-right: 32px; 
-  padding-bottom: 32px;
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Section = styled.View`
+  flex-direction: row;
+  width: 16px;
+  height: 4px;
+  justify-content: space-between;
+
 `;
 
 export const Title = styled.Text`
@@ -69,13 +75,21 @@ export const LastNameInput = styled.TextInput`
   background-color: #FFF;
 `;
 
-
 export const styles = StyleSheet.create({
-  BackButton: {
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F0F7',
+    paddingTop: 64,
+    paddingLeft: 32,
+    paddingRight: 32,
+    paddingBottom: 32
+  },
+
+  backButton: {
     width: 30
   },
 
-  NextButton: {
+  nextButton: {
     height: 56,
     backgroundColor: '#DCDCE5',
     borderRadius: 8,
@@ -84,9 +98,19 @@ export const styles = StyleSheet.create({
     marginTop: 25
   },
 
-  NextButtonText: {
+  nextButtonText: {
     color: '#9C98A6',
     fontSize: 16,
     lineHeight: 26
+  },
+
+  dotEnabled: {
+    width: 4,
+    height: 4
+  },
+
+  dotDisabled: {
+    width: 4,
+    height: 4
   }
-})
+});

@@ -58,7 +58,7 @@ const Login: React.FC = () => {
   }
 
   function handleNaviateToCreateAccount() {
-    navigate('CreateAccount');
+    navigate('CreateAccountPrimaryScreen');
   }
 
   return (

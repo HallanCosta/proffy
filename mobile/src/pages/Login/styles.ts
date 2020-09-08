@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   groupHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 20
   },
 
