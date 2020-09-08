@@ -44,7 +44,7 @@ export const TitleForm = styled.Text`
 
 export const Form = styled.View``;
 
-export const EmailInput = styled.TextInput`
+export const NameInput = styled.TextInput`
   height: 64px;
   width: 100%;
   padding-left: 24px;
@@ -61,7 +61,7 @@ export const EmailInput = styled.TextInput`
   margin-top: 25px;
 `;
 
-export const LastNameInput = styled.TextInput`
+export const LastnameInput = styled.TextInput`
   height: 64px;
   width: 100%;
   padding-left: 24px;

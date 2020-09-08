@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Feather, FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 import dotEnabled from '../../../assets/images/icons/dotEnabled.png';
@@ -20,15 +20,24 @@ import {
   Section
 } from './styles';
 
-const CreateAccount: React.FC = () => {
+interface Params {
+  name: string;
+  lastname: string;
+}
+
+const CreateAccountSecondScreen: React.FC = () => {
   const { navigate } = useNavigation();
+
+  const route = useRoute();
+  const { name, lastname } = route.params as Params;
 
   function handleNavigateToPrimaryScreen() {
     navigate('CreateAccountPrimaryScreen');
   }
 
   function handleRegister() {
-    
+    console.log(name);
+    console.log(lastname);
   }
 
   return (
@@ -77,4 +86,4 @@ const CreateAccount: React.FC = () => {
   );
 }
 
-export default CreateAccount;
+export default CreateAccountSecondScreen;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Feather, FontAwesome } from '@expo/vector-icons';
@@ -14,21 +14,26 @@ import {
   Description, 
   TitleForm, 
   Form, 
-  EmailInput, 
-  LastNameInput,
+  NameInput, 
+  LastnameInput,
   Header,
   Section
 } from './styles';
 
-const CreateAccount: React.FC = () => {
+const CreateAccountPrimaryScreen: React.FC = () => {
   const { navigate } = useNavigation();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    lastname: ''
+  });
 
   function handleNavigateToLogin() {
     navigate('Login');
   }
 
   function handleSecondScreen() {
-    navigate('CreateAccountSecondScreen');
+    navigate('CreateAccountSecondScreen', formData);
   }
 
   return (
@@ -59,11 +64,13 @@ const CreateAccount: React.FC = () => {
 
       <TitleForm>01. Quem é você</TitleForm>
       <Form>
-        <EmailInput 
+        <NameInput 
           placeholder="Nome"
+          onChangeText={value => setFormData({ ...formData, name: value })}
         />
-        <LastNameInput 
+        <LastnameInput 
           placeholder="Sobrenome"
+          onChangeText={value => setFormData({ ...formData, lastname: value })}
         />
 
         <RectButton
@@ -78,4 +85,4 @@ const CreateAccount: React.FC = () => {
   );
 }
 
-export default CreateAccount;
+export default CreateAccountPrimaryScreen;
