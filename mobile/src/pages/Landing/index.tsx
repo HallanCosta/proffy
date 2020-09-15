@@ -76,7 +76,7 @@ const Landing: React.FC = () => {
             style={styles.buttonProfile}
           >
             <Image 
-              source={{ uri: `https://ui-avatars.com/api/?name=${user?.name}` }} 
+              source={{ uri: user?.photo }} 
               style={styles.avatar} 
             />
             <Text style={styles.avatarName}>

@@ -8,6 +8,7 @@ import api from  '../services/api';
 interface User {
   name: string;
   email: string;
+  photo: string;
 }
 
 interface AuthContextData {
@@ -31,7 +32,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const storagedToken = await AsyncStorage.getItem('@ProffyAuth:token');  
     
       if (storagedUser && storagedToken) {
-        //api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
+        api.defaults.headers.Authorization = storagedToken;
         setUser(JSON.parse(storagedUser));
       } 
       setLoading(false);

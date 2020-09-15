@@ -12,6 +12,7 @@ interface userAccountResponse {
   lastname: string;
   email: string;
   password: string;
+  photo: string;
 }
 
 export default class UsersController {
@@ -21,7 +22,8 @@ export default class UsersController {
       name,
       lastname,
       email,
-      password
+      password,
+      photo
     } = request.body;
 
     const isUserEmail = await findOneUserAccount(email);
@@ -39,7 +41,8 @@ export default class UsersController {
         name,
         lastname,
         email,
-        password: passwordHash
+        password: passwordHash,
+        photo
       });
 
     return response.status(201).json();
@@ -70,7 +73,8 @@ export default class UsersController {
       token,
       user: {
         name: `${userAccount.name} ${userAccount.lastname}`,
-        email
+        email,
+        photo: userAccount.photo
       }
     });
   }

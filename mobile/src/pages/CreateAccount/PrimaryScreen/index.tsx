@@ -62,7 +62,11 @@ const CreateAccountPrimaryScreen: React.FC = () => {
   }
 
   function handleFormDataValidate() {
-    setIsFormDataValid(formData.name.length && formData.lastname.length > 0 ? true : false);
+    setIsFormDataValid(
+      formData.name.length > 2 && formData.lastname.length > 2 
+      ? true 
+      : false
+    );
   }
 
   useEffect(() => {

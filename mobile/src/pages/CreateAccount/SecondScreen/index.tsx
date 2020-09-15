@@ -71,7 +71,11 @@ const CreateAccountSecondScreen: React.FC = () => {
   }
 
   function handleFormDataValidate() {
-    setIsFormDataValid(formData.email.length && formData.password.length > 0 ? true : false);
+    setIsFormDataValid(
+      formData.email.length > 2 && formData.password.length > 2 
+      ? true 
+      : false
+    );
   }
 
   useEffect(() => {
@@ -80,9 +84,9 @@ const CreateAccountSecondScreen: React.FC = () => {
 
   async function handleRegister() {
     await api.post('create-account', formData);
-    console.log(formData);
 
     Alert.alert("Sucesso", "Você foi cadastrado com sucesso");
+    navigate('Login');
   }
 
   return (
