@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Image, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
@@ -14,11 +14,22 @@ import {
   Description, 
   TitleForm, 
   Form, 
-  NameInput, 
+  GroupInput,
+  NameInput,
+  NameLabel, 
   LastnameInput,
+  LastnameLabel,
   Header,
   Section
 } from './styles';
+
+export type PropsNameInput = {
+  title: boolean;
+}
+
+export type PropsLastnameInput = {
+  title: boolean;
+}
 
 const CreateAccountPrimaryScreen: React.FC = () => {
   const { navigate } = useNavigation();
@@ -28,6 +39,10 @@ const CreateAccountPrimaryScreen: React.FC = () => {
     lastname: ''
   });
 
+  const [nameLabel, setNameLabel] = useState<boolean>(false);
+  const [lastnameLabel, setLastnameLabel] = useState<boolean>(false);
+  const [isFormDataValid, setIsFormDataValid] = useState<boolean>(false);
+
   function handleNavigateToLogin() {
     navigate('Login');
   }
@@ -35,6 +50,24 @@ const CreateAccountPrimaryScreen: React.FC = () => {
   function handleSecondScreen() {
     navigate('CreateAccountSecondScreen', formData);
   }
+
+  function handleNameInput(value: string) {    
+    setFormData({ ...formData, name: value });
+    setNameLabel(value.length > 0 ? true : false);
+  }
+
+  function handleLastnameInput(value: string) {    
+    setFormData({ ...formData, lastname: value });
+    setLastnameLabel(value.length > 0 ? true : false);
+  }
+
+  function handleFormDataValidate() {
+    setIsFormDataValid(formData.name.length && formData.lastname.length > 0 ? true : false);
+  }
+
+  useEffect(() => {
+    handleFormDataValidate();
+  }, [formData.name, formData.lastname]);
 
   return (
     <KeyboardAvoidingView 
@@ -64,25 +97,42 @@ const CreateAccountPrimaryScreen: React.FC = () => {
 
       <TitleForm>01. Quem é você</TitleForm>
       <Form>
-        <NameInput 
-          placeholder="Nome"
-          onChangeText={value => setFormData({ ...formData, name: value })}
-        />
-        <LastnameInput 
-          placeholder="Sobrenome"
-          onChangeText={value => setFormData({ ...formData, lastname: value })}
-        />
+        <GroupInput>
+          <NameInput 
+            placeholder="Nome"
+            onChangeText={value => handleNameInput(value)}
+            title={nameLabel}
+            value={formData.name}
+          />
+          {nameLabel && <NameLabel>Nome</NameLabel>}
+        </GroupInput>
+
+        <GroupInput>
+          <LastnameInput 
+            placeholder="Sobrenome"
+            onChangeText={value => handleLastnameInput(value)}
+            title={lastnameLabel}
+            value={formData.lastname}
+          />
+          {lastnameLabel && <LastnameLabel>Sobrenome</LastnameLabel>}
+        </GroupInput>
 
         <RectButton
-          style={styles.nextButton}
+          style={[
+            styles.nextButtonDisabled,
+            isFormDataValid ? styles.nextButtonEnabled : {}
+          ]}
           onPress={handleSecondScreen}
-          enabled={true}
+          enabled={isFormDataValid}
         >
-          <Text style={styles.nextButtonText}>Próximo</Text>
+          <Text style={[
+            styles.nextButtonTextDisabled,
+            isFormDataValid ? styles.nextButtonTextEnabled : {}
+          ]}>Próximo</Text>
         </RectButton>
       </Form>
     </KeyboardAvoidingView>
   );
 }
 
-export default CreateAccountPrimaryScreen;
+export { CreateAccountPrimaryScreen };

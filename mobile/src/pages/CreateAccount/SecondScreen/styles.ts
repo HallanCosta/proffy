@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native'
 
+import { PropsEmailInput, PropsPasswordInput } from '.';
 //styled() herança
 
 export const Header = styled.View`
@@ -44,11 +45,16 @@ export const TitleForm = styled.Text`
 
 export const Form = styled.View``;
 
-export const EmailInput = styled.TextInput`
+export const GroupInput = styled.View`
+  flex-direction: row;
+`;
+
+export const EmailInput = styled.TextInput<PropsEmailInput>`
   height: 64px;
   width: 100%;
   padding-left: 24px;
   padding-right: 55px;
+  padding-top: ${props => props.title ? '20px' : '-20px'};
   border-bottom-color: #E6E6F0;
   border-bottom-width: 1px;
   border-style: solid;
@@ -61,11 +67,20 @@ export const EmailInput = styled.TextInput`
   margin-top: 25px;
 `;
 
-export const LastNameInput = styled.TextInput`
+export const EmailLabel = styled.Text`
+  font-size: 10px;
+  color: #C1BCCC;
+  padding-left: 24px;
+  left: -297px;
+  top: 35px;
+`;
+
+export const PasswordInput = styled.TextInput<PropsPasswordInput>`
   height: 64px;
   width: 100%;
   padding-left: 24px;
   padding-right: 55px;
+  padding-top: ${props => props.title ? '20px' : '-20px'};
   border-style: solid;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -73,6 +88,14 @@ export const LastNameInput = styled.TextInput`
   font-size: 14px;
   color: #6A6180;
   background-color: #FFF;
+`;
+
+export const PasswordLabel = styled.TextInput`
+  font-size: 10px;
+  color: #C1BCCC;
+  padding-left: 24px;
+  left: -297px;
+  top: -16px;
 `;
 
 export const styles = StyleSheet.create({
@@ -89,7 +112,7 @@ export const styles = StyleSheet.create({
     width: 30
   },
 
-  nextButton: {
+  nextButtonDisabled: {
     height: 56,
     backgroundColor: '#DCDCE5',
     borderRadius: 8,
@@ -98,10 +121,23 @@ export const styles = StyleSheet.create({
     marginTop: 25
   },
 
-  nextButtonText: {
+  nextButtonTextDisabled: {
     color: '#9C98A6',
     fontSize: 16,
     lineHeight: 26
+  },
+
+  nextButtonEnabled: {
+    height: 56,
+    backgroundColor: '#04D361',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 25
+  },
+
+  nextButtonTextEnabled: {
+    color: '#FFF'
   },
 
   dotEnabled: {
