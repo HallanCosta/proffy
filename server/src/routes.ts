@@ -18,7 +18,6 @@ routes.post('/create-account', userAccountController.create);
 routes.post('/authenticate', userAccountController.show);
 
 routes.use(authMiddleware.auth);
-//routes.get('/users', userAccountController.show);
 
 routes.get('/classes', classesController.index);
 routes.post('/classes', classesController.create);
