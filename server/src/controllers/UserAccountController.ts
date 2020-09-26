@@ -63,7 +63,7 @@ export default class UsersController {
       return response.status(406).json({ message: 'password invalid' });
     }
 
-    const token =  jwt.sign(
+    const token = jwt.sign(
       { id: userAccount.id }, 
       'secret', 
       { expiresIn: 86400 }

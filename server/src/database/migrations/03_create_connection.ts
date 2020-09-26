@@ -2,7 +2,7 @@ import Knex from 'knex';
 
 export async function up(knex: Knex) {
   return knex.schema.createTable('connections', table => {
-    table.increments('id').primary();
+    table.string('id').unique().notNullable();
 
     table.integer('user_id')
       .notNullable()

@@ -5,4 +5,4 @@ function convertHourToMinute(time: string) {
   return timeInMinutes
 }
 
-export default convertHourToMinute
+export default convertHourToMinute;
