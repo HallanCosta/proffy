@@ -85,8 +85,7 @@ const CreateAccountSecondScreen: React.FC = () => {
   async function handleRegister() {
     await api.post('create-account', formData);
 
-    Alert.alert("Sucesso", "Você foi cadastrado com sucesso");
-    navigate('Login');
+    navigate('CreateAccountThirdScreen');
   }
 
   return (
