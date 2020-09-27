@@ -10,33 +10,38 @@ export class SqliteClassesRepository implements IClassesRepository {
   async save(classes: Classes) {
     const trx = await db.transaction();
 
-    await trx('users').insert({
-      id: classes.id,
-      name: classes.name,
-      avatar: classes.avatar,
-      whatsapp: classes.whatsapp,
-      bio: classes.bio
-    });
+    try {
+      await trx('users').insert({
+        id: classes.id,
+        name: classes.name,
+        avatar: classes.avatar,
+        whatsapp: classes.whatsapp,
+        bio: classes.bio
+      });
+      
+      await trx('classes').insert({
+        id: classes.id,
+        subject: classes.subject,
+        cost: classes.cost,
+        user_id: classes.id
+      });
+      
+      const classSchedule = classes.schedule.map((scheduleItem) => {
+        return {
+          class_id: classes.id,
+          week_day: scheduleItem.week_day,
+          from: convertHourToMinutes(scheduleItem.from),
+          to: convertHourToMinutes(scheduleItem.to),
+        };
+      });
     
-    await trx('classes').insert({
-      id: classes.id,
-      subject: classes.subject,
-      cost: classes.cost,
-      user_id: classes.id
-    });
-    
-    const classSchedule = classes.schedule.map((scheduleItem) => {
-      return {
-        class_id: classes.id,
-        week_day: scheduleItem.week_day,
-        from: convertHourToMinutes(scheduleItem.from),
-        to: convertHourToMinutes(scheduleItem.to),
-      };
-    });
-   
-    await trx('class_schedule').insert(classSchedule); 
-    
-    await trx.commit();
+      await trx('class_schedule').insert(classSchedule); 
+      
+      await trx.commit();
+    } catch (err) {
+      await trx.rollback();
+      throw new Error('Failed to create proffy');
+    }
   }
 
   async list(proffys: TListClasses): Promise<TListClassesResponse> {
